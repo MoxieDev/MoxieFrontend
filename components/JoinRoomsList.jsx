@@ -29,20 +29,9 @@ useEffect(() => {
     }, []);
 
     return (
-        <div className="bg-[#131517] min-h-screen flex flex-col fixed w-full">
-            <div className="m-5">
-                <ul className="space-y-2 overflow-auto h-screen">
-                    {rooms.map((room) => (
-                        <li className="flex flex-col justify-start text-white">
-                            <div className="relative max-w-xl px-4 py-2 rounded-lg shadow bg-slate-700 w-fit">
-                                <span className="block">{room.title}</span>
-                            </div>
-                            <div className="text-sm text-gray-600">{room.id}</div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
+      <div className="bg-[#212329] min-h-screen flex flex-col fixed w-full">
+        
+      </div>
     );
 
 }
