@@ -18,7 +18,22 @@ function ChatRoom() {
       <RoomHeader roomName={roomId} />
 
       {/* Message list */}
-      <div className="">whateber</div>
+      <div className="">
+        <ul className="chat-history">                 
+            {this.props.messages.map(message => {
+              return (
+               <li key={message.id}>
+                 <div>
+                   {message.senderId}
+                 </div>
+                 <div>
+                   {message.text}
+                 </div>
+               </li>
+             )
+           })}
+         </ul>
+      </div>
 
       {/* Message Input */}
       <div className="mt-auto bg-[#282932] text-slate-200 flex justify-center items-center h-20 relative">
@@ -34,7 +49,9 @@ function ChatRoom() {
           }}
         />
         {/* Buttons after input */}
-        
+        <button onClick={sendMessage(ev.target.value)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          Send
+        </button>
       </div>
     </div>
   );
