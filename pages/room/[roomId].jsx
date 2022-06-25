@@ -6,17 +6,15 @@ import { useEffect } from "react";
 
 function ChatRoom({ roomData }) {
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    `ws://moxie.up.railway.app/chats/${roomData.id}/ws`,
+    `wss://moxie.up.railway.app/chats/${roomData.id}/ws`,
     { shouldReconnect: (closeEvent) => true }
   );
 
   useEffect(() => {
     // Get username from localStorage
     let username = localStorage.getItem("username");
-    console.log(username);
     if (!username || username === "Anonymous") {
       let username = prompt("Please enter your username");
-      console.log(username);
       localStorage.setItem("username", username);
     }
   }, []);
@@ -48,16 +46,15 @@ function ChatRoom({ roomData }) {
       let lastMessaged = JSON.parse(lastMessage.data);
       setMessages([...messages, lastMessaged]);
     }
-    console.log(messages);
   }, [lastMessage]);
 
   return (
-    <div className="bg-[#131517] min-h-screen flex flex-col">
+    <div className="bg-[#131517] min-h-screen relative flex flex-col">
       <RoomHeader roomName={roomData.title} />
 
       {/* Message list */}
       <div className="m-5">
-        <ul class="space-y-2 overflow-auto h-screen">
+        <ul className="space-y-2 overflow-auto h-screen">
           {messages.map((message) => (
             <ChatBubble text={message.msg} user={message.name} />
           ))}
@@ -65,9 +62,9 @@ function ChatRoom({ roomData }) {
       </div>
 
       {/* Message Input */}
-      <div className="mt-auto sticky bg-[#282932] text-slate-200 flex justify-center items-center h-20">
+      <div className="bottom-0 sticky bg-[#282932] text-slate-200 flex justify-center items-center h-20">
         <input
-          className="bg-[#1e1f25] p-5 rounded-full w-full h-12 mx-6"
+          className="bg-[#1e1f25] p-5 rounded-full w-full  h-12 mx-6"
           type="text"
           placeholder="Send a message..."
           onKeyPress={(ev) => {
