@@ -2,11 +2,11 @@ import React from "react";
 import { useRouter } from "next/router";
 import RoomHeader from "../../components/RoomHeader";
 
-function ChatRoom() {
+function ChatRoom({roomData}) {
   const router = useRouter();
   const { roomId } = router.query;
 
-  // roomInfo = getRoom() // Implement this after backend is done
+  console.log(roomData)
 
   let sendMessage = (message) => {
     // Implement this after backend is done
@@ -15,11 +15,11 @@ function ChatRoom() {
 
   return (
     <div className="bg-[#131517] min-h-screen flex flex-col">
-      <RoomHeader roomName={roomId} />
+      <RoomHeader roomName={roomData.title} />
 
       {/* Message list */}
-      <div className="">
-        <ul className="chat-history">                 
+      <div className="chat-div">
+        {/* <ul className="chat-history">                 
             {this.props.messages.map(message => {
               return (
                <li key={message.id}>
@@ -32,7 +32,7 @@ function ChatRoom() {
                </li>
              )
            })}
-         </ul>
+         </ul> */}
       </div>
 
       {/* Message Input */}
@@ -49,7 +49,10 @@ function ChatRoom() {
           }}
         />
         {/* Buttons after input */}
-        <button onClick={sendMessage(ev.target.value)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        <button onClick={ (ev) => {
+                            sendMessage(ev.target.value); 
+                            ev.target.value=""}} 
+                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
           Send
         </button>
       </div>
@@ -58,17 +61,17 @@ function ChatRoom() {
 }
 
 export async function getServerSideProps(context) {
-  const id = context.params.roomid // Get ID from slug `/book/1`
+  const id = context.params.roomId // Get ID from slug `/book/1`
   
-  if ('${id}' === null){
+  if (`${id}` === null || `${id}` === undefined){
     return { notFound: true };
   }
   
-  const data = await fetch('/chats/${id}')
+  const data = await fetch(`https://moxie.up.railway.app/chats/${id}`)
 
-  const roomId = await data.json()
+  const roomData = await data.json()
 
-  return {props: { roomId } }
+  return {props: { roomData } }
 }
 
 export default ChatRoom;
