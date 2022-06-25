@@ -1,43 +1,110 @@
 import React from "react";
-import { useRouter } from "next/router";
 import RoomHeader from "../../components/RoomHeader";
+import useWebSocket, { ReadyState } from "react-use-websocket";
+import ChatBubble from "../../components/Chat/ChatBubble";
+import { useEffect } from "react";
 
-function ChatRoom() {
-  const router = useRouter();
-  const { roomId } = router.query;
+function ChatRoom({ roomData }) {
+  const { sendMessage, lastMessage, readyState } = useWebSocket(
+    `ws://moxie.up.railway.app/chats/${roomData.id}/ws`,
+    { shouldReconnect: (closeEvent) => true }
+  );
 
-  // roomInfo = getRoom() // Implement this after backend is done
+  useEffect(() => {
+    // Get username from localStorage
+    let username = localStorage.getItem("username");
+    console.log(username);
+    if (!username || username === "Anonymous") {
+      let username = prompt("Please enter your username");
+      console.log(username);
+      localStorage.setItem("username", username);
+    }
+  }, []);
 
-  let sendMessage = (message) => {
+  let sendMsg = (message) => {
     // Implement this after backend is done
-    console.log(message)
-  }
+
+    sendMessage(
+      JSON.stringify({
+        event_type: "send",
+        name: localStorage.getItem("username"),
+        color: "Red",
+        msg: message,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (readyState === ReadyState.OPEN) {
+      sendMsg(lastMessage);
+    }
+  }, [readyState]);
+
+  const [messages, setMessages] = React.useState([]);
+
+  // Use effect to keep track of last message
+  useEffect(() => {
+    if (lastMessage) {
+      let lastMessaged = JSON.parse(lastMessage.data);
+      setMessages([...messages, lastMessaged]);
+    }
+    console.log(messages);
+  }, [lastMessage]);
 
   return (
     <div className="bg-[#131517] min-h-screen flex flex-col">
-      <RoomHeader roomName={roomId} />
+      <RoomHeader roomName={roomData.title} />
 
       {/* Message list */}
-      <div className="">whateber</div>
+      <div className="m-5">
+        <ul class="space-y-2 overflow-auto h-screen">
+          {messages.map((message) => (
+            <ChatBubble text={message.msg} user={message.name} />
+          ))}
+        </ul>
+      </div>
 
       {/* Message Input */}
-      <div className="mt-auto bg-[#282932] text-slate-200 flex justify-center items-center h-20 relative">
+      <div className="mt-auto sticky bg-[#282932] text-slate-200 flex justify-center items-center h-20">
         <input
           className="bg-[#1e1f25] p-5 rounded-full w-full h-12 mx-6"
           type="text"
           placeholder="Send a message..."
           onKeyPress={(ev) => {
             if (ev.key === "Enter") {
-              sendMessage(ev.target.value);
+              sendMsg(ev.target.value);
               ev.target.value = "";
             }
           }}
+          required
         />
         {/* Buttons after input */}
-        
+        <button
+          onClick={(ev) => {
+            sendMsg(ev.target.value);
+            ev.target.value = "";
+          }}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        >
+          Send
+        </button>
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const id = context.params.roomId; // Get ID from slug `/book/1`
+
+  if (`${id}` === null || `${id}` === undefined) {
+    return { notFound: true };
+  }
+
+  const data = await fetch(`https://moxie.up.railway.app/chats/${id}`);
+
+  const roomData = await data.json();
+
+  return { props: { roomData } };
 }
 
 export default ChatRoom;
