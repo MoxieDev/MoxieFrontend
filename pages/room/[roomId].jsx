@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 function ChatRoom({ roomData }) {
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    `ws://moxie.up.railway.app/chats/${roomData.id}/ws`,
+    `wss://moxie.up.railway.app/chats/${roomData.id}/ws`,
     { shouldReconnect: (closeEvent) => true }
   );
 
