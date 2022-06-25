@@ -57,4 +57,18 @@ function ChatRoom() {
   );
 }
 
+export async function getServerSideProps(context) {
+  const id = context.params.roomid // Get ID from slug `/book/1`
+  
+  if ('${id}' === null){
+    return { notFound: true };
+  }
+  
+  const data = await fetch('/chats/${id}')
+
+  const roomId = await data.json()
+
+  return {props: { roomId } }
+}
+
 export default ChatRoom;
