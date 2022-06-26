@@ -136,7 +136,7 @@ function RoomsBar() {
         </div>
       </div>
 
-      <div className="h-screen sticky top-0 col-span-1 bg-[#00acc9]">
+      <div className="h-screen sticky top-0 p-5 col-span-1 bg-[#04C1E1]">
         {/* Left bar- 1/4th of grid*/}
         <a href="/">
           <h2 className="font-martel text-white font-bold mt-6 ml-6 text-xl">

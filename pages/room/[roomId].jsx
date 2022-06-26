@@ -31,15 +31,21 @@ function ChatRoom({ roomData }) {
 
   let sendMsg = (message) => {
     // Implement this after backend is done
-
-    sendMessage(
-      JSON.stringify({
-        event_type: "send",
-        name: localStorage.getItem("username"),
-        color: "Red",
-        msg: message,
-      })
-    );
+    if ( message && message.length > 0) {
+      message = message.trim();
+    }
+    if (!localStorage.getItem("username")) {
+      alert("Please set a username first");
+      return;
+    }
+      sendMessage(
+        JSON.stringify({
+          event_type: "send",
+          name: localStorage.getItem("username"),
+          color: "Red",
+          msg: message,
+        })
+      );
   };
 
   useEffect(() => {
