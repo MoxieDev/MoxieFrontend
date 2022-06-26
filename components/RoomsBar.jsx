@@ -52,7 +52,7 @@ function RoomsBar() {
         })
         .catch((err) => console.log(err));
     }
-  }
+  };
 
   return (
     <>
@@ -136,7 +136,7 @@ function RoomsBar() {
         </div>
       </div>
 
-      <div className="h-screen sticky top-0 col-span-1 bg-[#1fb0b2]">
+      <div className="h-screen sticky top-0 col-span-1 bg-[#04C1E1]">
         {/* Left bar- 1/4th of grid*/}
         <a href="/">
           <h2 className="font-martel text-white font-bold mt-6 ml-6 text-xl">
@@ -145,8 +145,8 @@ function RoomsBar() {
         </a>
 
         {/* Over here, there will be a list of rooms joined by the person with a hyperlink to it */}
-        <div>
-          <div className="font-martel flex text-gray-400 text-sm ml-5 mt-10">
+        <div className="my-4">
+          <div className="font-martel flex text-black text-sm ml-5 mt-10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mx-2"

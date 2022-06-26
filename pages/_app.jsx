@@ -2,9 +2,7 @@ import "../styles/globals.css";
 import RoomsBar from "../components/RoomsBar";
 import JoinRoomsList from "../components/JoinRoomsList";
 
-
 function MyApp({ Component, pageProps }) {
-  
   return (
     <div className="grid grid-cols-4 ">
       {/* Since we are going to have the same frontend for every chat room, I create a custom 
@@ -18,12 +16,11 @@ function MyApp({ Component, pageProps }) {
       </div>
 
       {/* Right bar */}
-      <div className="col-span-1 bg-[#212329]">
-        <JoinRoomsList/>
+      <div className="col-span-1 bg-[#04C1E1]">
+        <JoinRoomsList />
       </div>
     </div>
   );
 }
-
 
 export default MyApp;
