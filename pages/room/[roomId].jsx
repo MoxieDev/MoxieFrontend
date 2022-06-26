@@ -86,9 +86,8 @@ function ChatRoom({ roomData }) {
           }}
           required
         />
-        {/* Buttons after input */}
         <button
-          onClick={(ev) => {
+          onClick={ev => {
             sendMsg(ev.target.value);
             ev.target.value = "";
           }}

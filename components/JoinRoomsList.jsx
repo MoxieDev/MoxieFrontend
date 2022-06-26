@@ -28,19 +28,25 @@ function JoinRoomsList() {
 
   return (
     <div className="bg-[#212329] min-h-screen flex flex-col fixed w-34">
-      {rooms.map((room) => (
-        <div onClick={e => {
-            window.location.href = `/room/${room.id}`;
-            addRoomToLocalStorage(room)
-        }} key={room.id} className="m-5 mr-10 cursor-pointer bg-[#141414] rounded-lg shadow-md hover:shadow-lg">
-          <div className="flex flex-col justify-between items-center p-4">
-            <h4 className="text-slate-300">{room.title}</h4>
-            <div className="flex items-center mt-2 text-gray-400">
-              <p className="text-slate-300">{room.description}</p>
+      <div className="overflow-y-scroll h-screen scrollbar-hide">
+        {rooms.map((room) => (
+          <div
+            onClick={(e) => {
+              window.location.href = `/room/${room.id}`;
+              addRoomToLocalStorage(room);
+            }}
+            key={room.id}
+            className="m-5 mr-10 cursor-pointer bg-[#141414] rounded-lg shadow-md hover:shadow-lg"
+          >
+            <div className="flex flex-col justify-between items-center p-4">
+              <h4 className="text-slate-300">{room.title}</h4>
+              <div className="flex items-center mt-2 text-gray-400">
+                <p className="text-slate-300">{room.description}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
