@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RoomBtn from "./RoomBtn";
 
 function RoomsBar() {
@@ -17,6 +17,12 @@ function RoomsBar() {
   };
 
   const [rooms, setRooms] = React.useState(getRoomsFromLocalStorage());
+  const [username, setUsername] = React.useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUsername(localStorage.getItem("username"));
+    }
+  }, []);
 
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -51,6 +57,22 @@ function RoomsBar() {
           setModalShow(false);
         })
         .catch((err) => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("username", username);
+    }
+  }
+  , [username]);
+
+  const checkIfRoomExists = async (roomId) => {
+    let data = await fetch(`https://moxie.up.railway.app/chats/${roomId}`).then(
+      (res) => res.json()
+    );
+    if (data.success == "true") {
+      return true;
     }
   };
 
@@ -160,9 +182,39 @@ function RoomsBar() {
           </div>
         </div>
 
-        {rooms.map((room) => (
-          <RoomBtn key={room.id} roomName={room.title} roomId={room.id} />
-        ))}
+        <div className="overflow-auto h-80">
+          {rooms.map((room) => (
+            <RoomBtn key={room.id} roomName={room.title} roomId={room.id} />
+          ))}
+        </div>
+
+        {/* Input to change username */}
+        <div className="mt-10">
+          <div className="flex justify-center items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mx-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 112 0 1 1 0 01-2 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Change username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+        </div>
 
         <div className="mt-auto">
           {/* Create room button */}
