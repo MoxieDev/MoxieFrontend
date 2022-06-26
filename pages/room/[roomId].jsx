@@ -65,7 +65,10 @@ function ChatRoom({ roomData }) {
 
       {/* Message list */}
       <div className="m-5">
-        <ul ref={chatScrollRef} className="space-y-2 overflow-auto h-screen scrollbar-hide">
+        <ul
+          ref={chatScrollRef}
+          className="space-y-2 overflow-y-auto h-screen scrollbar-hide"
+        >
           {messages.map((message) => (
             <ChatBubble text={message.msg} user={message.name} />
           ))}
@@ -87,7 +90,7 @@ function ChatRoom({ roomData }) {
           required
         />
         <button
-          onClick={ev => {
+          onClick={(ev) => {
             sendMsg(ev.target.value);
             ev.target.value = "";
           }}

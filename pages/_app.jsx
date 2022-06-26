@@ -8,7 +8,9 @@ function MyApp({ Component, pageProps }) {
       {/* Since we are going to have the same frontend for every chat room, I create a custom 
       _app.js */}
 
-      <RoomsBar />
+      <div className="hidden md:block">
+        <RoomsBar />
+      </div>
 
       {/* ChatRoom - /pages/room/roomID */}
       <div className="col-span-2 min-h-full">
@@ -16,7 +18,7 @@ function MyApp({ Component, pageProps }) {
       </div>
 
       {/* Right bar */}
-      <div className="col-span-1 bg-[#00acc9]">
+      <div className="col-span-1 hidden md:block bg-[#00acc9]">
         <JoinRoomsList />
       </div>
     </div>
