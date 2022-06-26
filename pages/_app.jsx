@@ -4,7 +4,7 @@ import JoinRoomsList from "../components/JoinRoomsList";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div className="grid grid-cols-4 ">
+    <div className="grid md:grid-cols-4">
       {/* Since we are going to have the same frontend for every chat room, I create a custom 
       _app.js */}
 
