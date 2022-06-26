@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
       </div>
 
       {/* Right bar */}
-      <div className="col-span-1 bg-[#04C1E1]">
+      <div className="col-span-1 bg-[#00acc9]">
         <JoinRoomsList />
       </div>
     </div>

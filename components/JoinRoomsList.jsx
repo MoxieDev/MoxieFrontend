@@ -27,7 +27,7 @@ function JoinRoomsList() {
   };
 
   return (
-    <div className="bg-[#04C1E1] min-h-screen flex flex-col fixed w-34">
+    <div className="bg-[#00acc9] min-h-screen flex flex-col fixed w-34">
       <div className="overflow-y-scroll h-screen scrollbar-hide">
         {rooms.map((room) => (
           <div
@@ -39,7 +39,11 @@ function JoinRoomsList() {
             className="m-5 mr-10 cursor-pointer border-4  hover:bg-cyan-700 bg-pink-500 rounded-xl shadow-md hover:shadow-lg"
           >
             <div className="flex flex-col justify-between items-center p-4">
-              <img width={100} src={`https://avatars.dicebear.com/api/adventurer/${room.id}.svg`} alt="" />
+              <img
+                width={100}
+                src={`https://avatars.dicebear.com/api/adventurer/${room.id}.svg`}
+                alt=""
+              />
               <h4 className="text-xl text-yellow-100">{room.title}</h4>
               <div className="flex items-center mt-2 text-gray-400">
                 <p className="text-slate-300">{room.description}</p>
