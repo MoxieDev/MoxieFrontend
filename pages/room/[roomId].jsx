@@ -4,6 +4,16 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import ChatBubble from "../../components/Chat/ChatBubble";
 import { useEffect } from "react";
 
+function useChatScroll(dep) {
+  const ref = React.useRef();
+  React.useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  }, [dep]);
+  return ref;
+}
+
 function ChatRoom({ roomData }) {
   const { sendMessage, lastMessage, readyState } = useWebSocket(
     `wss://moxie.up.railway.app/chats/${roomData.id}/ws`,
@@ -39,6 +49,7 @@ function ChatRoom({ roomData }) {
   }, [readyState]);
 
   const [messages, setMessages] = React.useState([]);
+  const chatScrollRef = useChatScroll(messages);
 
   // Use effect to keep track of last message
   useEffect(() => {
@@ -54,7 +65,7 @@ function ChatRoom({ roomData }) {
 
       {/* Message list */}
       <div className="m-5">
-        <ul className="space-y-2 overflow-auto h-screen">
+        <ul ref={chatScrollRef} className="space-y-2 overflow-auto h-screen scrollbar-hide">
           {messages.map((message) => (
             <ChatBubble text={message.msg} user={message.name} />
           ))}
