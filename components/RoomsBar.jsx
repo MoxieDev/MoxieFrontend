@@ -136,11 +136,13 @@ function RoomsBar() {
         </div>
       </div>
 
-      <div className="h-screen sticky top-0 col-span-1 bg-[#212329]">
+      <div className="h-screen sticky top-0 col-span-1 bg-[#1fb0b2]">
         {/* Left bar- 1/4th of grid*/}
-        <h2 className="font-martel text-white font-bold mt-6 ml-6 text-xl">
-          Moxie Chat
-        </h2>
+        <a href="/">
+          <h2 className="font-martel text-white font-bold mt-6 ml-6 text-xl">
+            Moxie Chat
+          </h2>
+        </a>
 
         {/* Over here, there will be a list of rooms joined by the person with a hyperlink to it */}
         <div>
