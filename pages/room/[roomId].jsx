@@ -34,10 +34,7 @@ function ChatRoom({ roomData }) {
     if (message && message.length > 0) {
       message = message.trim();
     }
-    if (!localStorage.getItem("username")) {
-      alert("Please set a username first");
-      return;
-    }
+
     sendMessage(
       JSON.stringify({
         event_type: "send",
