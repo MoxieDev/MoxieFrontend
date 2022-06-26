@@ -60,7 +60,7 @@ function ChatRoom({ roomData }) {
   }, [lastMessage]);
 
   return (
-    <div className="bg-[#131517] min-h-screen relative flex flex-col">
+    <div className="bg-green-300 min-h-screen relative flex flex-col">
       <RoomHeader roomName={roomData.title} />
 
       {/* Message list */}
@@ -73,9 +73,9 @@ function ChatRoom({ roomData }) {
       </div>
 
       {/* Message Input */}
-      <div className="bottom-0 sticky bg-[#282932] text-slate-200 flex justify-center items-center h-20">
+      <div className="bottom-0 sticky text-slate-200 flex justify-center items-center h-20">
         <input
-          className="bg-[#1e1f25] p-5 rounded-full w-full  h-12 mx-6"
+          className="bg-yellow-200 text-black p-5 rounded-full w-full  h-12 mx-6"
           type="text"
           placeholder="Send a message..."
           onKeyPress={(ev) => {
@@ -91,7 +91,7 @@ function ChatRoom({ roomData }) {
             sendMsg(ev.target.value);
             ev.target.value = "";
           }}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold mr-3 py-2 px-4 rounded-full"
         >
           Send
         </button>
